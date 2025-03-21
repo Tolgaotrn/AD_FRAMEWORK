@@ -9,6 +9,7 @@ class NoCred:
         print("\n[+] No Credentials section is starting \n")
         print("1. Networ Discovery - with nmap ")
         print("2. Find DC ip")
+        print("3. Anonymous access on SMB shares")
 
         choice = input("\n Enter your choice:  ")
 
@@ -36,6 +37,8 @@ class NoCred:
 
         elif choice == "2":
            find_dc_ip()
+        elif choice == "3":
+            self.run_anonymous_access_on_smb_shares()
         else:
             print("\n[-] Invalid option! Please try again.")
             self.run()
@@ -43,7 +46,7 @@ class NoCred:
 
     #it could be also in modules for later using for exploit
 
-    def run_anonymous_access_on_smb_shares(self,target):
+    def run_anonymous_access_on_smb_shares(self):
         
         ip_range = input("\nPlease provide a ip range: ")
         command = f'nxc smb f{ip_range}'
