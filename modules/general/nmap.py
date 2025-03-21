@@ -11,7 +11,7 @@ def run_nmap(target, options= ''):
 
 
     try:
-        result = subprocess.run(command, shell=True,  text=True, )
+        result = subprocess.run(command, shell=True,  text=True )
         if result.returncode == 0:
             print("\n[+] Command executed successfully!")
         else:

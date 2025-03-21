@@ -74,7 +74,7 @@ class NoCred:
         if not dc_ip:
             print("[-] DC IP cannot be empty!")
             return
-        command = f'nxc smb {dc_ip} --users'
+        command = f'nxc smb {dc_ip} --rid-brute 10000'
         try:
             result = subprocess.run(command, shell=True, text=True,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
