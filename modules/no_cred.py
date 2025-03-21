@@ -40,3 +40,21 @@ class NoCred:
             print("\n[-] Invalid option! Please try again.")
             self.run()
 
+
+    #it could be also in modules for later using for exploit
+
+    def run_anonymous_access_on_smb_shares(self,target):
+        
+        ip_range = input("\nPlease provide a ip range: ")
+        command = f'nxc smb f{ip_range}'
+        if command:
+            print(f"\n Running command: {command}")
+
+        try:
+            result = subprocess.run(command, shell=True, text=True)
+            if result.returncode == 0:
+                print("\n[+] Command executed successfully!")
+            else:
+                print("\n[-] ERROR: Command executed unsuccessfully!")
+        except Exception as e:
+            print(f"\n[-] Exception: {e}")
