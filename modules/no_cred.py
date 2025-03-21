@@ -1,5 +1,6 @@
 import subprocess
 from  modules.general.nmap import *
+from  modules.general.dc_enemuration import *
 class NoCred:
     def __init__(self):
         pass
@@ -7,7 +8,7 @@ class NoCred:
     def run(self):
         print("\n[+] No Credentials section is starting \n")
         print("1. Networ Discovery - with nmap ")
-       
+        print("2. Find DC ip")
 
         choice = input("\n Enter your choice:  ")
 
@@ -34,7 +35,7 @@ class NoCred:
                 self.run()
 
         elif choice == "2":
-            return
+           find_dc_ip()
         else:
             print("\n[-] Invalid option! Please try again.")
             self.run()
