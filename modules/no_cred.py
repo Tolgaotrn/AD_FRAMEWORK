@@ -10,7 +10,7 @@ class NoCred:
         print("1. Networ Discovery - with nmap ")
         print("2. Find DC ip")
         print("3. Anonymous access on SMB shares")
-
+        print("4. Users enemuration")
         choice = input("\n Enter your choice:  ")
 
         if choice == "1":
@@ -66,3 +66,26 @@ class NoCred:
                 print("\n[-] ERROR: Command executed unsuccessfully!")
         except Exception as e:
             print(f"\n[-] Exception: {e}")
+
+    def enemurate_users(self):
+        dc_ip = input("Please provide a dc ip: ")
+        if not dc_ip:
+            print("[-] DC IP cannot be empty!")
+            return
+        command = f'nxc smb {dc_ip} --users'
+        try:
+            result = subprocess.run(command, shell=True, text=True,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+            if result.returncode == 0:
+                output = result.stdout.strip().split('\n')
+                if output:
+                    print("\n[+] Enemurated users: ")
+                    for line in output:
+                        print(f"    {line}")
+                else:
+                    print("\n[-] No users found!!!")
+        except Exception as e:
+            print(f"\n[-] Exception: {e}")
+
+
+            
