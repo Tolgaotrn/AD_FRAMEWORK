@@ -39,6 +39,8 @@ class NoCred:
            find_dc_ip()
         elif choice == "3":
             self.run_anonymous_access_on_smb_shares()
+        elif choice == "4":
+            self.enemurate_users()
         else:
             print("\n[-] Invalid option! Please try again.")
             self.run()
@@ -88,4 +90,3 @@ class NoCred:
             print(f"\n[-] Exception: {e}")
 
 
-            
