@@ -1,6 +1,6 @@
 import subprocess
 
-def run_nmap(target, options= '-Pn -sC -sV -p- -oA'):
+def run_nmap(target, options= ''):
     """
     //TODO: add more options, and make it more dynamic for after using on other modules
     """
