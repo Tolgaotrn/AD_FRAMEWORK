@@ -48,12 +48,17 @@ class NoCred:
 
     def run_anonymous_access_on_smb_shares(self):
         
-        ip_range = input("\nPlease provide a ip range: ")
-        command = f'nxc smb f{ip_range}'
+        ip_range = input("\nPlease provide a ip range: ").strip()
+        if not ip_range:
+            print("[-] IP range cannot be empty!")
+            return
+        command = f'nxc smb {ip_range}'
         if command:
             print(f"\n Running command: {command}")
 
         try:
+            ##todo
+            ###idk instead of printing output directly could be filtered ... 
             result = subprocess.run(command, shell=True, text=True)
             if result.returncode == 0:
                 print("\n[+] Command executed successfully!")
