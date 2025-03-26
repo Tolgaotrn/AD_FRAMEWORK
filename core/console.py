@@ -3,6 +3,7 @@
 from modules.valid_user_no_pass.no_pass import ValidUser
 from modules.no_cred.no_cred import NoCred
 from modules.valid_creds.valid_creds import ValidCreds 
+from modules.quick_compromise.quick_compromise import Quick_compromise as CommonVulns
 from colorama import Fore, Style, init
 import readline
 
@@ -12,6 +13,7 @@ MODULES = {
     "valid_user": ValidUser,
     "no_cred": NoCred,
     "valid_creds": ValidCreds,
+    "common_vulns": CommonVulns
 }
 
 MODULES_COLORS = {
