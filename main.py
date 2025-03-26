@@ -1,24 +1,36 @@
-import sys
-from modules.no_cred import NoCred
-# from modules.valid_user import ValidUser
+#import sys
+#from colorama import Fore, Back, Style, init
+#from modules.no_cred.no_cred import NoCred
+#from modules.valid_user_no_pass.no_pass import ValidUser
+#from modules.valid_creds.valid_creds import ValidCreds
+from core.console import Shell
+from core.console import MODULES
 
-def main():
-    print("\n=== AD Pentest Framework ===\n")
-    print("1. No Cred ")
-    print("2. Valid User")
 
-    choice = input("Enter your choice: ")
 
-    ##smb is not working well..
-    if choice == '1':
-        no_cred = NoCred()
-        no_cred.run()
-    # elif choice == '2':
-    #     valid_user = ValidUser() 
-    #     valid_user.run()
-    else:
-        print("\n[-] Invalid choice. Please provide a valid option...\n")
-        main()
 
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    print("""
+    
+ █████╗ ██████╗     ██████╗ ███████╗███╗   ██╗████████╗███████╗███████╗████████╗    ███████╗██████╗  █████╗ ███╗   ███╗███████╗██╗    ██╗ ██████╗ ██████╗ ██╗  ██╗
+██╔══██╗██╔══██╗    ██╔══██╗██╔════╝████╗  ██║╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝    ██╔════╝██╔══██╗██╔══██╗████╗ ████║██╔════╝██║    ██║██╔═══██╗██╔══██╗██║ ██╔╝
+███████║██║  ██║    ██████╔╝█████╗  ██╔██╗ ██║   ██║   █████╗  ███████╗   ██║       █████╗  ██████╔╝███████║██╔████╔██║█████╗  ██║ █╗ ██║██║   ██║██████╔╝█████╔╝ 
+██╔══██║██║  ██║    ██╔═══╝ ██╔══╝  ██║╚██╗██║   ██║   ██╔══╝  ╚════██║   ██║       ██╔══╝  ██╔══██╗██╔══██║██║╚██╔╝██║██╔══╝  ██║███╗██║██║   ██║██╔══██╗██╔═██╗ 
+██║  ██║██████╔╝    ██║     ███████╗██║ ╚████║   ██║   ███████╗███████║   ██║       ██║     ██║  ██║██║  ██║██║ ╚═╝ ██║███████╗╚███╔███╔╝╚██████╔╝██║  ██║██║  ██╗
+╚═╝  ╚═╝╚═════╝     ╚═╝     ╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚══════╝   ╚═╝       ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝ ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+                                                                                                                                                                  
+    """)
+    print("This Framework is based on the Active Directory MindMap made by Orange CyberDefense")
+
+
+
+
+    print("Available modules:\n")
+    print("-"*50)
+    for module in MODULES:
+        print(f"    🟡 {module}")
+        print("-"*50)
+    print("\nType 'use <module>' to start or 'modules' to show this list\n")
+
+
+    Shell().run()

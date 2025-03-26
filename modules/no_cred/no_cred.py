@@ -1,45 +1,49 @@
 import subprocess
 import sys
 import os
-from modules.general.nmap import *
-from modules.general.dc_enemuration import *
+from utils.nmap import *
+from utils.dc_enumeration import *
+from colorama import Fore, Style, init
+from core.module_base import ModuleBase
 
-class NoCred:
+init()
+
+class NoCred(ModuleBase):
     def __init__(self):
-        pass
+        super().__init__()
+        self.name = "no_creds"
+        self.options = {
+            "ip": None,
+            "domain": None
+        }
+        self.actions = {
+            "nmap": self.network_discovery,
+            "find_dc_ip": find_dc_ip,
+            "anon_smb_share": self.run_anonymous_access_on_smb_shares,
+            "users_enumeration": self.enumerate_users,
+            "bruteforcing_rid": self.bruteforce_users,
+            "smb_poisoning": self.smb_poisoning,
+            "zone_transfer": self.zone_transfer,
+        }
 
-    def run(self):
-        print("\n[+] No Credentials section is starting \n")
-        print("1. Network Discovery - with nmap ")
-        print("2. Find DC IP")
-        print("3. Anonymous access on SMB shares")
-        print("4. Users enumeration")
-        print("5. Bruteforcing usernames")
-        print("6. SMP Poisonning")
-        print("7. Zone transfer")
+    def prepare(self):
+        ip = self.options["IP"]
+        if not ip:
+            print("[-] Need IP")
+            return None
+        ip_list = get_input_or_file(ip)
+        return ip_list
 
-        choice = input("\nEnter your choice: ")
+    def banner(self):
+        print(Fore.MAGENTA + f"\n🔥 MODULE {self.name.upper()} 🔥 \n" + Style.RESET_ALL)
+        print("\n See options and set a target with 'options'\n")
 
-        if choice == "1":
-            self.network_discovery()
-        elif choice == "2":
-            find_dc_ip()
-        elif choice == "3":
-            self.run_anonymous_access_on_smb_shares()
-        elif choice == "4":
-            self.enumerate_users()
-        elif choice == '5':
-            self.bruteforce_users()
-        elif choice == '6':
-            self.smb_poisoning()
-        elif choice =='7':
-            self.zone_transfer()
-        else:
-            print("\n[-] Invalid option! Please try again.")
-            self.run()
+
+    ##############
 
     def network_discovery(self):
-        target = input("\nTarget IP: ")
+        #target = input("\nTarget IP: ")
+        target = self.options["ip"] 
         if not target:
             print("\n[-] Target IP cannot be empty!")
             self.run()
@@ -61,25 +65,27 @@ class NoCred:
             self.run()
 
     def run_anonymous_access_on_smb_shares(self):
-        ip_range = input("\nPlease provide an IP range: ").strip()
+        #ip_range = input("\nPlease provide an IP range: ").strip()
+        ip_range = self.options["ip"]
         if not ip_range:
             print("[-] IP range cannot be empty!")
             return
 
         command = f'nxc smb {ip_range}'
-        print(f"\n[+] Running command: {command}")
+        print(f"\n🟡 Running command: {command}")
 
         try:
             result = subprocess.run(command, shell=True, text=True)
             if result.returncode == 0:
-                print("\n[+] Command executed successfully!")
+                print("\n✅ Command executed successfully!")
             else:
-                print("\n[-] ERROR: Command executed unsuccessfully!")
+                print("\n❌ ERROR: Command executed unsuccessfully!")
         except Exception as e:
             print(f"\n[-] Exception: {e}")
 
     def enumerate_users(self):
-        dc_ip = input("\nPlease provide a DC IP: ")
+        #dc_ip = input("\nPlease provide a DC IP: ")
+        dc_ip = self.options["ip"]
         if not dc_ip:
             print("[-] DC IP cannot be empty!")
             return
@@ -102,8 +108,10 @@ class NoCred:
             print(f"\n[-] Exception: {e}")
 
     def bruteforce_users(self):
-        domain = input("\nPlease provide a domain name: ")
-        dc_address = input("Domain controller IP address: ")
+        #domain = input("\nPlease provide a domain name: ")
+        domain = self.options["domain"]
+        #dc_address = input("Domain controller IP address: ")
+        dc_address = self.options["domain"]
         userlist_path = input("Please provide a user list file path: ")
 
         if not (domain and dc_address and userlist_path):
@@ -169,7 +177,3 @@ class NoCred:
             print(f'\n[-] Exception: {e}')
 
 
-
-if __name__ == "__main__":
-    no_cred = NoCred()
-    no_cred.run()
