@@ -41,6 +41,18 @@ class Shell:
                     print(f"  • {name}")
                 print()
 
+            elif cmd == "help":
+                print("\nAvailable commands:")
+                print("  modules         - Show available modules")
+                print("  use <module>    - Load a module")
+                print("  options         - Show module options and actions (if module is loaded)")
+                print("  set <opt> <val> - Set a module option")
+                print("  run <action>    - Run a specific action from the loaded module")
+                print("  run all         - Run all actions from the loaded module")
+                print("  back            - Unload current module")
+                print("  exit, quit      - Exit the framework\n")
+
+
             elif cmd.startswith("use "):
                 name = cmd.split(" ", 1)[1]
                 if name in MODULES:
