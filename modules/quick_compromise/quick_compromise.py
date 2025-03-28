@@ -54,7 +54,7 @@ class Quick_compromise(ModuleBase):
             return
                 
     def zerologon(self):
-        ip = self.options["NetBIOS-Name"]
+        ip = self.options["ip"]
         bios_name = input("Please provde a valid BIOS-Name: ")
         ports = [445,135,139]
 
