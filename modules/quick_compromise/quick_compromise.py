@@ -9,7 +9,7 @@ from utils.nmap import *
 init()
 
 ##TODO: Veeam, nuclei templates/ zerologon
-
+##DONE: zerologon
 class Quick_compromise(ModuleBase):
     def __init__(self):
         super().__init__()
@@ -19,7 +19,8 @@ class Quick_compromise(ModuleBase):
             "domain": None
         }
         self.actions = {
-           "proxyshell": self.proxyshell
+           "proxyshell": self.proxyshell,
+           "zerologon": self.zerologon
         }
 
     def banner(self):
